@@ -58,3 +58,21 @@
 (use-package doom-modeline
     :config
     (doom-modeline-mode 1))
+
+;; Vim keybindings
+(use-package evil
+    :custom
+    (evil-want-integration t)
+    (evil-want-minibuffer t)
+    (evil-want-keybinding nil)
+    (evil-want-C-u-scroll t)
+    (evil-undo-system 'undo-redo)
+    (evil-kill-on-visual-paste nil)
+    (evil-mode-beyond-eol t)
+    :config
+    (evil-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
