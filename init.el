@@ -46,3 +46,15 @@
 (setq use-package-always-ensure t  ;; Always ensure packages are installed
       use-package-always-delay  t) ;; Defer loading packages unless demanded
 
+;; Theme
+
+;; Don't ask for confirmation before loading themes
+(setq custom-safe-themes t)
+
+(use-package doom-themes
+    :config
+    (load-theme 'doom-gruvbox t))
+
+(use-package doom-modeline
+    :config
+    (doom-modeline-mode 1))
