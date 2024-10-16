@@ -160,3 +160,8 @@
     (global-set-key (kbd "C-h k") #'helpful-key)
     (global-set-key (kbd "C-h x") #'helpful-command)
     (global-set-key (kbd "C-h o") #'helpful-symbol))
+
+(use-package which-key
+    :config
+    (setopt which-key-popup-type 'side-window)
+    (which-key-mode 1))
