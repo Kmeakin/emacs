@@ -46,11 +46,26 @@
 (setq use-package-always-ensure t  ;; Always ensure packages are installed
       use-package-always-delay  t) ;; Defer loading packages unless demanded
 
+;; Sane defaults
+(use-package emacs
+    :ensure nil
+    :config
+    ;; Don't ask for confirmation for everything
+    (setq use-short-answers t)
+    (setq use-dialog-box nil)
+    (setq confirm-nonexistent-file-or-buffer nil)
+    (setq custom-safe-themes t)
+
+    ;; Opening files
+    (recentf-mode 1)               ;; Save recently opened files
+    (savehist-mode 1)              ;; Save minibuffer history
+    (save-place-mode 1)            ;; Save location in opened files
+    (setq make-backup-files nil)   ;; Don't litter backups everywhere
+
+    (global-auto-revert-mode 1)    ;; Reload files automatically
+    (setq global-auto-revert-non-file-buffers t))
+
 ;; Theme
-
-;; Don't ask for confirmation before loading themes
-(setq custom-safe-themes t)
-
 (use-package doom-themes
     :config
     (load-theme 'doom-gruvbox t))
