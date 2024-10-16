@@ -10,8 +10,6 @@
         package-enable-at-startup      false
         use-package-compute-statistics true)
 
-
-
 (setopt use-package-always-ensure true  ;; Always ensure packages are installed
         use-package-always-delay  true) ;; Defer loading packages unless demanded
 
@@ -144,6 +142,10 @@
           ("C-h" . vertico-directory-up)
           ("C-l" . vertico-directory-enter)))
 
+(use-package vertico-posframe
+    :after vertico
+    :config
+    (vertico-posframe-mode 1))
 
 (use-package marginalia
     :config
