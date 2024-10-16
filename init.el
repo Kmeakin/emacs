@@ -71,6 +71,13 @@
     (save-place-mode 1)              ;; Save location in opened files
     (setopt make-backup-files false) ;; Don't litter backups everywhere
 
+    ;; Indentation
+    (setopt indent-tabs-mode false)      ;; Insert spaces instead of tabs
+    (setopt lisp-body-indent 4)          ;; Ident lisp code with 4 spaces instead of 2
+    (setopt tab-width 4)                 ;; Render tabs as 4 spaces
+    (setopt tab-stop-list '(4))          ;; Tab button inserts 4 spaces
+    (setopt tab-always-indent 'complete) ;; Tab button tries to indent, then tries to complete
+
     ;; Reload files automatically
     (global-auto-revert-mode 1)
     (setopt global-auto-revert-non-file-buffers true)
