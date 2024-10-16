@@ -11,37 +11,37 @@
        (build (expand-file-name "elpaca/" elpaca-builds-directory))
        (order (cdr elpaca-order))
        (default-directory repo))
-  (add-to-list 'load-path (if (file-exists-p build) build repo))
-  (unless (file-exists-p repo)
-    (make-directory repo t)
-    (when (< emacs-major-version 28) (require 'subr-x))
-    (condition-case-unless-debug err
-        (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
-                 ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
-                                                 ,@(when-let ((depth (plist-get order :depth)))
-                                                     (list (format "--depth=%d" depth) "--no-single-branch"))
-                                                 ,(plist-get order :repo) ,repo))))
-                 ((zerop (call-process "git" nil buffer t "checkout"
-                                       (or (plist-get order :ref) "--"))))
-                 (emacs (concat invocation-directory invocation-name))
-                 ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
-                                       "--eval" "(byte-recompile-directory \".\" 0 'force)")))
-                 ((require 'elpaca))
-                 ((elpaca-generate-autoloads "elpaca" repo)))
-            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
-          (error "%s" (with-current-buffer buffer (buffer-string))))
-      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
-  (unless (require 'elpaca-autoloads nil t)
-    (require 'elpaca)
-    (elpaca-generate-autoloads "elpaca" repo)
-    (load "./elpaca-autoloads")))
+    (add-to-list 'load-path (if (file-exists-p build) build repo))
+    (unless (file-exists-p repo)
+        (make-directory repo t)
+        (when (< emacs-major-version 28) (require 'subr-x))
+        (condition-case-unless-debug err
+                (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+                         ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
+                                                         ,@(when-let ((depth (plist-get order :depth)))
+                                                               (list (format "--depth=%d" depth) "--no-single-branch"))
+                                                         ,(plist-get order :repo) ,repo))))
+                         ((zerop (call-process "git" nil buffer t "checkout"
+                                               (or (plist-get order :ref) "--"))))
+                         (emacs (concat invocation-directory invocation-name))
+                         ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+                                               "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+                         ((require 'elpaca))
+                         ((elpaca-generate-autoloads "elpaca" repo)))
+                        (progn (message "%s" (buffer-string)) (kill-buffer buffer))
+                    (error "%s" (with-current-buffer buffer (buffer-string))))
+            ((error) (warn "%s" err) (delete-directory repo 'recursive))))
+    (unless (require 'elpaca-autoloads nil t)
+        (require 'elpaca)
+        (elpaca-generate-autoloads "elpaca" repo)
+        (load "./elpaca-autoloads")))
 (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
 
 ;; Install `use-package' support
 (elpaca elpaca-use-package
-  ;; Enable use-package :ensure support for Elpaca.
-  (elpaca-use-package-mode))
+    ;; Enable use-package :ensure support for Elpaca.
+    (elpaca-use-package-mode))
 
 ;; Aliases that make elisp a bit less ugly in my opinion
 (defconst true t)
@@ -54,6 +54,7 @@
 (use-package emacs
     :ensure nil
     :config
+
     ;; Don't ask for confirmation for everything
     (setopt use-short-answers true)
     (setopt use-dialog-box false)
@@ -84,13 +85,13 @@
 
     ;; Scrolling
     ;; Scroll when there are 5 lines at the top/bottom of the page
-    (setopt scroll-margin 5) 
+    (setopt scroll-margin 5)
     ;; Scroll up/down by 1 line rather than recentering when point goes off the page
-    (setopt scroll-step   1) 
+    (setopt scroll-step   1)
     ;; Keep point in place while scrolling
-    (setopt scroll-preserve-screen-position true) 
+    (setopt scroll-preserve-screen-position true)
     ;; Scroll in pixel increments rather than lines
-    (pixel-scroll-precision-mode 1)               
+    (pixel-scroll-precision-mode 1)
     ;; Scroll with mouse even in terminal!
     (xterm-mouse-mode 1)
 
@@ -110,28 +111,28 @@
 
 ;; Font
 (use-package emacs
-  :ensure nil
-  :config
-  (set-face-attribute
-   'default false
-   :font "Fira Code"
-   :height 110))
+    :ensure nil
+    :config
+    (set-face-attribute
+     'default false
+     :font "Fira Code"
+     :height 110))
 
 (use-package ligature
-  :config
-  (ligature-set-ligatures
-   true
-   '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
-     ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
-     "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
-     "#_(" ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*" "/**"
-     "/=" "/==" "/>" "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>"
-     "++" "+++" "+>" "=:=" "==" "===" "==>" "=>" "=>>" "<="
-     "=<<" "=/=" ">-" ">=" ">=>" ">>" ">>-" ">>=" ">>>" "<*"
-     "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
-     "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
-     "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
-  (global-ligature-mode 1))
+    :config
+    (ligature-set-ligatures
+     true
+     '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
+       ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
+       "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
+       "#_(" ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*" "/**"
+       "/=" "/==" "/>" "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>"
+       "++" "+++" "+>" "=:=" "==" "===" "==>" "=>" "=>>" "<="
+       "=<<" "=/=" ">-" ">=" ">=>" ">>" ">>-" ">>=" ">>>" "<*"
+       "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
+       "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
+       "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
+    (global-ligature-mode 1))
 
 ;; Vim keybindings
 (use-package evil
@@ -147,6 +148,7 @@
     (evil-mode 1))
 
 (use-package evil-collection
-  :after evil
-  :config
-  (evil-collection-init))
+    :after evil
+    :config
+    (evil-collection-init))
+
