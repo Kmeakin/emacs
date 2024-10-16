@@ -10,6 +10,8 @@
         package-enable-at-startup      false
         use-package-compute-statistics true)
 
+
+
 (setopt use-package-always-ensure true  ;; Always ensure packages are installed
         use-package-always-delay  true) ;; Defer loading packages unless demanded
 
@@ -17,6 +19,9 @@
 (use-package emacs
     :ensure nil
     :config
+
+    (setq custom-file (locate-user-emacs-file "custom-vars.el"))
+    (load custom-file 'noerror 'nomessage)
 
     ;; Update built-in packages if newer version in ELPA
     (setopt package-install-upgrade-built-in true)
@@ -146,16 +151,3 @@
     (global-set-key (kbd "C-h k") #'helpful-key)
     (global-set-key (kbd "C-h x") #'helpful-command)
     (global-set-key (kbd "C-h o") #'helpful-symbol))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(helpful consult marginalia vertico whitespace-cleanup-mode evil-collection evil ligature doom-modeline doom-themes)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
