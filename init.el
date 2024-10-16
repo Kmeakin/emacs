@@ -18,6 +18,9 @@
     :ensure nil
     :config
 
+    ;; Update built-in packages if newer version in ELPA
+    (setopt package-install-upgrade-built-in true)
+
     ;; Don't ask for confirmation for everything
     (setopt use-short-answers true)
     (setopt use-dialog-box false)
