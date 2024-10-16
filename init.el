@@ -135,8 +135,15 @@
 
 ;; Minibuffer
 (use-package vertico
-    :config
-    (vertico-mode 1))
+    :init
+    (vertico-mode 1)
+    :bind
+    (:map vertico-map
+          ("C-j" . vertico-next)
+          ("C-k" . vertico-previous) ; FIXME: doesn't work, seems to be overwritten by evil
+          ("C-h" . vertico-directory-up)
+          ("C-l" . vertico-directory-enter)))
+
 
 (use-package marginalia
     :config
