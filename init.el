@@ -80,7 +80,11 @@
     ;; Scroll in pixel increments rather than lines
     (pixel-scroll-precision-mode 1)               
     ;; Scroll with mouse even in terminal!
-    (xterm-mouse-mode 1))
+    (xterm-mouse-mode 1)
+
+    ;; Line numbers in fringe
+    (setopt display-line-numbers-type 'relative)
+    (global-display-line-numbers-mode 1))
 
 ;; Theme
 (use-package doom-themes
