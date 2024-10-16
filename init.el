@@ -66,8 +66,21 @@
     (save-place-mode 1)              ;; Save location in opened files
     (setopt make-backup-files false) ;; Don't litter backups everywhere
 
-    (global-auto-revert-mode 1)    ;; Reload files automatically
-    (setopt global-auto-revert-non-file-buffers true))
+    ;; Reload files automatically
+    (global-auto-revert-mode 1)
+    (setopt global-auto-revert-non-file-buffers true)
+
+    ;; Scrolling
+    ;; Scroll when there are 5 lines at the top/bottom of the page
+    (setopt scroll-margin 5) 
+    ;; Scroll up/down by 1 line rather than recentering when point goes off the page
+    (setopt scroll-step   1) 
+    ;; Keep point in place while scrolling
+    (setopt scroll-preserve-screen-position true) 
+    ;; Scroll in pixel increments rather than lines
+    (pixel-scroll-precision-mode 1)               
+    ;; Scroll with mouse even in terminal!
+    (xterm-mouse-mode 1))
 
 ;; Theme
 (use-package doom-themes
