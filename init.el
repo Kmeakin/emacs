@@ -197,3 +197,11 @@
     :config
     (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
+(use-package treemacs
+    :config)
+
+(use-package treemacs-nerd-icons
+    :after treemacs
+    :config
+    (treemacs-load-theme "nerd-icons"))
+
