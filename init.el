@@ -93,6 +93,7 @@
 
 (use-package doom-modeline
     :config
+    (column-number-mode 1) ;; Column numbers in modeline
     (doom-modeline-mode 1))
 
 ;; Font
