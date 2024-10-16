@@ -60,6 +60,11 @@
     (setopt confirm-nonexistent-file-or-buffer true)
     (setopt custom-safe-themes true)
 
+    ;; Case-insensitive menus
+    (setopt read-file-name-completion-ignore-case true)
+    (setopt read-buffer-completion-ignore-case true)
+    (setopt completion-ignore-case true)
+
     ;; Opening files
     (recentf-mode 1)                 ;; Save recently opened files
     (savehist-mode 1)                ;; Save minibuffer history
