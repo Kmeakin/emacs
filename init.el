@@ -153,6 +153,14 @@
 
 (use-package consult)
 
+(use-package orderless
+    :config
+    ;; `orderless' for partial matches
+    ;; `basic' is needed for some more obscure completions (eg TRAMP)
+    ;; `partial-completion' allows abbreviations like `/u/s/l' for `usr/share/local'
+    (setopt completion-styles '(orderless basic))
+    (setopt completion-category-overrides '((file (styles basic partial-completion)))))
+
 (use-package helpful
     :config
     (global-set-key (kbd "C-h f") #'helpful-callable)
