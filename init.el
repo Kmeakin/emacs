@@ -152,3 +152,12 @@
     :config
     (evil-collection-init))
 
+;; Formatting
+(use-package whitespace-cleanup-mode
+    :config (global-whitespace-cleanup-mode 1))
+
+(use-package emacs
+    :ensure nil
+    :config
+    (setopt whitespace-style '(space-mark tab-mark))
+    (global-whitespace-mode 0)) ;; FIXME: only display repeated spaces, like in VSCode
