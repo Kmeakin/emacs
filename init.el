@@ -151,6 +151,12 @@
     :config
     (marginalia-mode 1))
 
+(use-package nerd-icons-completion
+    :after marginalia
+    :config
+    (nerd-icons-completion-mode 1)
+    (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+
 (use-package consult)
 
 (use-package orderless
@@ -173,3 +179,21 @@
     :config
     (setopt which-key-popup-type 'side-window)
     (which-key-mode 1))
+
+(use-package corfu
+    :hook ((corfu-mode . corfu-popupinfo-mode)
+           (prog-mode . corfu-mode)
+           (shell-mode . corfu-mode)
+           (eshell-mode . corfu-mode))
+    :config
+    (setopt corfu-cycle true) ;; Loop back around when going past the start/end
+    (setopt corfu-auto true) ;; Show completions after typing, without pressing TAB
+    (setopt corfu-preselect 'prompt) ;; "TAB-and-go" style: pressing TAB fills in the first option
+    (setopt corfu-scroll-margin 1) ;; Similar to `scroll-margin'
+    (setopt corfu-popupinfo-delay 0))
+
+(use-package nerd-icons-corfu
+    :after corfu
+    :config
+    (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+
