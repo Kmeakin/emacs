@@ -43,27 +43,31 @@
   ;; Enable use-package :ensure support for Elpaca.
   (elpaca-use-package-mode))
 
-(setq use-package-always-ensure t  ;; Always ensure packages are installed
-      use-package-always-delay  t) ;; Defer loading packages unless demanded
+;; Aliases that make elisp a bit less ugly in my opinion
+(defconst true t)
+(defconst false nil)
+
+(setopt use-package-always-ensure true  ;; Always ensure packages are installed
+        use-package-always-delay  true) ;; Defer loading packages unless demanded
 
 ;; Sane defaults
 (use-package emacs
     :ensure nil
     :config
     ;; Don't ask for confirmation for everything
-    (setq use-short-answers t)
-    (setq use-dialog-box nil)
-    (setq confirm-nonexistent-file-or-buffer nil)
-    (setq custom-safe-themes t)
+    (setopt use-short-answers true)
+    (setopt use-dialog-box false)
+    (setopt confirm-nonexistent-file-or-buffer true)
+    (setopt custom-safe-themes true)
 
     ;; Opening files
-    (recentf-mode 1)               ;; Save recently opened files
-    (savehist-mode 1)              ;; Save minibuffer history
-    (save-place-mode 1)            ;; Save location in opened files
-    (setq make-backup-files nil)   ;; Don't litter backups everywhere
+    (recentf-mode 1)                 ;; Save recently opened files
+    (savehist-mode 1)                ;; Save minibuffer history
+    (save-place-mode 1)              ;; Save location in opened files
+    (setopt make-backup-files false) ;; Don't litter backups everywhere
 
     (global-auto-revert-mode 1)    ;; Reload files automatically
-    (setq global-auto-revert-non-file-buffers t))
+    (setopt global-auto-revert-non-file-buffers true))
 
 ;; Theme
 (use-package doom-themes
@@ -76,15 +80,15 @@
 
 ;; Vim keybindings
 (use-package evil
-    :custom
-    (evil-want-integration t)
-    (evil-want-minibuffer t)
-    (evil-want-keybinding nil)
-    (evil-want-C-u-scroll t)
-    (evil-undo-system 'undo-redo)
-    (evil-kill-on-visual-paste nil)
-    (evil-mode-beyond-eol t)
+    :init
+    (setopt evil-want-keybinding false) ;; Needs to be set *before* `evil' is loaded
     :config
+    (setopt evil-want-integration true)
+    (setopt evil-want-minibuffer true)
+    (setopt evil-want-C-u-scroll true)
+    (setopt evil-undo-system 'undo-redo)
+    (setopt evil-kill-on-visual-paste false)
+    (setopt evil-mode-beyond-eol true)
     (evil-mode 1))
 
 (use-package evil-collection
