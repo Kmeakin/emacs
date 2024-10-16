@@ -1,51 +1,14 @@
-;; Bootstrap elpaca
-(defvar elpaca-installer-version 0.7)
-(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
-(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
-(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
-(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
-                              :ref nil :depth 1
-                              :files (:defaults "elpaca-test.el" (:exclude "extensions"))
-                              :build (:not elpaca--activate-package)))
-(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
-       (build (expand-file-name "elpaca/" elpaca-builds-directory))
-       (order (cdr elpaca-order))
-       (default-directory repo))
-    (add-to-list 'load-path (if (file-exists-p build) build repo))
-    (unless (file-exists-p repo)
-        (make-directory repo t)
-        (when (< emacs-major-version 28) (require 'subr-x))
-        (condition-case-unless-debug err
-                (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
-                         ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
-                                                         ,@(when-let ((depth (plist-get order :depth)))
-                                                               (list (format "--depth=%d" depth) "--no-single-branch"))
-                                                         ,(plist-get order :repo) ,repo))))
-                         ((zerop (call-process "git" nil buffer t "checkout"
-                                               (or (plist-get order :ref) "--"))))
-                         (emacs (concat invocation-directory invocation-name))
-                         ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
-                                               "--eval" "(byte-recompile-directory \".\" 0 'force)")))
-                         ((require 'elpaca))
-                         ((elpaca-generate-autoloads "elpaca" repo)))
-                        (progn (message "%s" (buffer-string)) (kill-buffer buffer))
-                    (error "%s" (with-current-buffer buffer (buffer-string))))
-            ((error) (warn "%s" err) (delete-directory repo 'recursive))))
-    (unless (require 'elpaca-autoloads nil t)
-        (require 'elpaca)
-        (elpaca-generate-autoloads "elpaca" repo)
-        (load "./elpaca-autoloads")))
-(add-hook 'after-init-hook #'elpaca-process-queues)
-(elpaca `(,@elpaca-order))
-
-;; Install `use-package' support
-(elpaca elpaca-use-package
-    ;; Enable use-package :ensure support for Elpaca.
-    (elpaca-use-package-mode))
-
 ;; Aliases that make elisp a bit less ugly in my opinion
 (defconst true t)
 (defconst false nil)
+
+;; Setup `use-package'
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(require 'use-package-ensure)
+(setopt use-package-always-ensure      true
+        package-enable-at-startup      false
+        use-package-compute-statistics true)
 
 (setopt use-package-always-ensure true  ;; Always ensure packages are installed
         use-package-always-delay  true) ;; Defer loading packages unless demanded
@@ -161,3 +124,35 @@
     :config
     (setopt whitespace-style '(space-mark tab-mark))
     (global-whitespace-mode 0)) ;; FIXME: only display repeated spaces, like in VSCode
+
+;; Minibuffer
+(use-package vertico
+    :config
+    (vertico-mode 1))
+
+(use-package marginalia
+    :config
+    (marginalia-mode 1))
+
+(use-package consult)
+
+(use-package helpful
+    :config
+    (global-set-key (kbd "C-h f") #'helpful-callable)
+    (global-set-key (kbd "C-h v") #'helpful-variable)
+    (global-set-key (kbd "C-h k") #'helpful-key)
+    (global-set-key (kbd "C-h x") #'helpful-command)
+    (global-set-key (kbd "C-h o") #'helpful-symbol))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(helpful consult marginalia vertico whitespace-cleanup-mode evil-collection evil ligature doom-modeline doom-themes)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
