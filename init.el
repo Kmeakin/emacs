@@ -189,9 +189,11 @@
     :config
     (setopt corfu-cycle true) ;; Loop back around when going past the start/end
     (setopt corfu-auto true) ;; Show completions after typing, without pressing TAB
-    (setopt corfu-preselect 'prompt) ;; "TAB-and-go" style: pressing TAB fills in the first option
+    (setopt corfu-preselect 'first) ;; Select the first item automatically
     (setopt corfu-scroll-margin 1) ;; Similar to `scroll-margin'
-    (setopt corfu-popupinfo-delay 0))
+    (setopt corfu-auto-prefix 1)
+    (setopt corfu-auto-delay 0.1)
+    (setopt corfu-popupinfo-delay 0.1))
 
 (use-package nerd-icons-corfu
     :after corfu
