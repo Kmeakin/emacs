@@ -162,9 +162,10 @@
 (use-package orderless
     :config
     ;; `orderless' for partial matches
+    ;; `flex' for fuzzy matches
     ;; `basic' is needed for some more obscure completions (eg TRAMP)
     ;; `partial-completion' allows abbreviations like `/u/s/l' for `usr/share/local'
-    (setopt completion-styles '(orderless basic))
+    (setopt completion-styles '(flex orderless basic))
     (setopt completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package helpful
