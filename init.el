@@ -302,6 +302,16 @@
     :config
     (evil-commentary-mode 1))
 
+;; Automatically close pairs like `(', `[', `{', `"'
+(use-package electric
+    :hook ((prog-mode . electric-pair-mode)))
+
+(use-package electric
+    :hook ((prog-mode . electric-indent-mode)))
+
+(use-package aggressive-indent
+    :hook ((prog-mode . aggressive-indent-mode)))
+
 (use-package centaur-tabs
     :config
     (setopt centaur-tabs-style "alternate")
