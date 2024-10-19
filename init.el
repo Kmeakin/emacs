@@ -213,8 +213,17 @@
     (treemacs-load-theme "nerd-icons")
     (treemacs-start-on-boot))
 
-(use-package treemacs-nerd-icons
-    :after treemacs
+(use-package eshell
+    :ensure nil
+    :config
+    (setopt eshell-cmpl-ignore-case true)
+    (setopt eshell-destroy-buffer-when-process-dies true))
+
+(use-package eat
+    :after eshell
+    :hook ((eshell-load . eat-eshell-mode)
+           (eshell-load . eat-eshell-visual-command-mode)))
+
     :config
     (treemacs-load-theme "nerd-icons"))
 
