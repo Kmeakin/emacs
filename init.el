@@ -234,3 +234,8 @@
     :config
     (evil-commentary-mode 1))
 
+(use-package centaur-tabs
+    :config
+    (setopt centaur-tabs-style "alternate")
+    (centaur-tabs-mode 1))
+
