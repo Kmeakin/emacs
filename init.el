@@ -317,6 +317,8 @@
     (setopt centaur-tabs-style "alternate")
     (centaur-tabs-mode 1))
 
+(use-package magit)
+
 (use-package winum
     :config
     (winum-mode 1)
