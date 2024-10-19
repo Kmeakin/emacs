@@ -72,11 +72,12 @@
 
     ;; Line numbers in fringe
     (setopt display-line-numbers-type 'relative)
-    (global-display-line-numbers-mode 1)
 
     :bind
     ("<f10>" . menu-bar-mode) ;; Toggle menu bar
-    ) 
+
+    :hook
+    ((prog-mode . display-line-numbers-mode))) 
 
 
 ;; Theme
