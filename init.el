@@ -35,6 +35,12 @@
     (setopt read-buffer-completion-ignore-case true)
     (setopt completion-ignore-case true)
 
+    ;; Takes up precious space
+    (tool-bar-mode -1)
+    (menu-bar-mode -1)
+
+    (context-menu-mode 1) ;; Show menu on right click
+
     ;; Opening files
     (recentf-mode 1)                 ;; Save recently opened files
     (savehist-mode 1)                ;; Save minibuffer history
@@ -66,7 +72,12 @@
 
     ;; Line numbers in fringe
     (setopt display-line-numbers-type 'relative)
-    (global-display-line-numbers-mode 1))
+    (global-display-line-numbers-mode 1)
+
+    :bind
+    ("<f10>" . menu-bar-mode) ;; Toggle menu bar
+    ) 
+
 
 ;; Theme
 (use-package doom-themes
