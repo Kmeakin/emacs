@@ -1,21 +1,29 @@
+;; Bootstrap `straight.el' package manager
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+    (unless (file-exists-p bootstrap-file)
+        (with-current-buffer
+                (url-retrieve-synchronously
+                 "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+                 'silent 'inhibit-cookies)
+            (goto-char (point-max))
+            (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+
 ;; Aliases that make elisp a bit less ugly in my opinion
 (defconst true t)
 (defconst false nil)
 
-;; Setup `use-package'
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(require 'use-package-ensure)
-(setopt use-package-always-ensure      true
-        package-enable-at-startup      false
-        use-package-compute-statistics true)
-
-(setopt use-package-always-ensure true  ;; Always ensure packages are installed
-        use-package-always-delay  true) ;; Defer loading packages unless demanded
+(setopt straight-use-package-by-default true)
+(straight-use-package 'use-package)
 
 ;; Sane defaults
 (use-package emacs
-    :ensure nil
     :config
 
     (setq custom-file (locate-user-emacs-file "custom-vars.el"))
@@ -92,7 +100,6 @@
 
 ;; Font
 (use-package emacs
-    :ensure nil
     :config
     (set-face-attribute
      'default false
@@ -189,7 +196,6 @@
     :config (global-whitespace-cleanup-mode 1))
 
 (use-package emacs
-    :ensure nil
     :config
     (setopt whitespace-style '(space-mark tab-mark))
     (global-whitespace-mode 0)) ;; FIXME: only display repeated spaces, like in VSCode
@@ -277,7 +283,6 @@
     (treemacs-start-on-boot))
 
 (use-package eshell
-    :ensure nil
     :config
     (setopt eshell-cmpl-ignore-case true)
     (setopt eshell-destroy-buffer-when-process-dies true))
