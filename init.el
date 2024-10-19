@@ -91,7 +91,7 @@
 ;; Theme
 (use-package doom-themes
     :config
-    (load-theme 'doom-gruvbox t))
+    (load-theme 'doom-old-hope t))
 
 (use-package doom-modeline
     :config
