@@ -253,8 +253,8 @@
     (setopt corfu-auto true) ;; Show completions after typing, without pressing TAB
     (setopt corfu-preselect 'first) ;; Select the first item automatically
     (setopt corfu-scroll-margin 1) ;; Similar to `scroll-margin'
-    (setopt corfu-auto-prefix 1)
-    (setopt corfu-auto-delay 0.1)
+    (setopt corfu-auto-prefix 1) ;; Show completions after typing 1 character
+    (setopt corfu-auto-delay 0.1) ;; Make the delay as short as possible
     (setopt corfu-popupinfo-delay 0.1))
 
 (use-package nerd-icons-corfu
