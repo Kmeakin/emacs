@@ -201,7 +201,17 @@
     (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (use-package treemacs
-    :config)
+    :demand true
+    :config
+    (setopt treemacs-file-follow-delay 0.1)
+    (treemacs-follow-mode 1) ;; Update file tree to reflect current buffer
+    (treemacs-peek-mode 1))  ;; Preview files on hover
+(use-package treemacs-evil :after treemacs)
+(use-package treemacs-magit :after treemacs)
+(use-package treemacs-nerd-icons :after treemacs
+    :config
+    (treemacs-load-theme "nerd-icons")
+    (treemacs-start-on-boot))
 
 (use-package treemacs-nerd-icons
     :after treemacs
