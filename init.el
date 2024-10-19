@@ -224,6 +224,13 @@
     :hook ((eshell-load . eat-eshell-mode)
            (eshell-load . eat-eshell-visual-command-mode)))
 
+(use-package evil-goggles
     :config
-    (treemacs-load-theme "nerd-icons"))
+    (setopt evil-goggles-duration 0.1)
+    (evil-goggles-use-diff-faces)
+    (evil-goggles-mode 1))
+
+(use-package evil-commentary
+    :config
+    (evil-commentary-mode 1))
 
