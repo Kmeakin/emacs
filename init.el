@@ -87,7 +87,6 @@
     :hook
     ((prog-mode . display-line-numbers-mode))) 
 
-
 ;; Theme
 (use-package doom-themes
     :config
@@ -335,3 +334,14 @@
           ("7" . #'winum-select-window-7)
           ("8" . #'winum-select-window-8)
           ("9" . #'winum-select-window-9)))
+
+;; Discovery
+(use-package mode-minder
+    :straight (mode-minder :type git :host github :repo "jdtsmith/mode-minder"))
+
+(use-package comint-fold
+    :straight (comint-fold :type git :host github :repo "jdtsmith/comint-fold"))
+
+(use-package hideshow
+    :hook
+    (prog-mode . hs-minor-mode))
